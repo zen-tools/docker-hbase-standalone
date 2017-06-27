@@ -1,11 +1,13 @@
 ## -*- docker-image-name: "banno/hbase-standalone" -*-
-FROM ubuntu:12.04
+FROM ubuntu:14.04
 MAINTAINER Nic Grayson nic.grayson@banno.com
+
+ENV DEBIAN_FRONTEND noninteractive
 
 # install add-apt-repository
 RUN \
   apt-get update && \
-  apt-get install -y python-software-properties curl
+  apt-get install -y software-properties-common curl
 
 # install java
 RUN \
@@ -13,7 +15,7 @@ RUN \
   echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
   add-apt-repository -y ppa:webupd8team/java && \
   apt-get update && \
-  apt-get install -y oracle-java7-installer
+  apt-get install -y oracle-java8-installer
 
 # install hbase master
 RUN mkdir /opt/hbase
